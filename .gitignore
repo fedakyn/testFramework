@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/config/properties
+src/main/resources/drivers
 
 ### IntelliJ IDEA ###
 .idea/
