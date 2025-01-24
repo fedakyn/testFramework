@@ -11,7 +11,7 @@ public class BaseTest{
     protected WebDriverWait wait;
 
     public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\valix\\Desktop\\project\\test\\src\\main\\resources\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\valix\\Desktop\\project\\test\\src\\main\\resources\\drivers\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));

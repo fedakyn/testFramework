@@ -1,13 +1,14 @@
-package org.example;
+package com.example.tests.ui;
 
 import com.example.base.BaseTest;
-import com.example.utils.Util;
+import com.example.helpers.Util;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
 import com.example.pages.SignupPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Test;
 
 public class LaunchChrome extends BaseTest {
 
@@ -16,6 +17,7 @@ public class LaunchChrome extends BaseTest {
         test.runTest();
     }
 
+    @Test
     public void runTest() {
         String email = Util.generateRandomString(10);
         setUp();

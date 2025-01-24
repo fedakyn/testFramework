@@ -12,19 +12,19 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import com.example.utils.Util;
+import com.example.helpers.Util;
 
 public class StepDefinitions extends BaseTest {
 
     SignupPage signupPage = new SignupPage(driver);
 
     @Given("I launch the browser")
-    public void i_launch_the_browser(){
+    public void browser_launch(){
         setUp();
     }
 
     @When("I open the application")
-    public void i_open_the_application(){
+    public void open_application(){
         driver.get("https://automationexercise.com/");
         try {
             WebElement acceptCookiesButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='fc-button fc-cta-consent fc-primary-button']")));
@@ -36,32 +36,32 @@ public class StepDefinitions extends BaseTest {
     }
 
     @And ("I click on signup login")
-    public void i_click_on_signup_login(){
+    public void click_signup(){
         HomePage homePage = new HomePage(driver);
         homePage.clickSignUpLoginButton();
     }
 
     @And("I input the signup name {word}")
-    public void i_input_the_signup_name(String username){
+    public void input_signup_name(String username){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterSignupName(username);
     }
 
     @And("I input the signupEmail")
-    public void i_input_the_password(){
+    public void input_signup_email(){
         String email = Util.generateRandomString(10);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterSignupEmail(email + "@test.net");
     }
 
     @And("I press signup")
-    public void i_press_signup(){
+    public void press_signup(){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSignupButton();
     }
 
     @And ("I complete all the fields for registering")
-    public void i_complete_all_the_fields_for_registering(){
+    public void complete_all_fields(){
         SignupPage signupPage = new SignupPage(driver);
         signupPage.selectGender("id_gender1");
         signupPage.enterName("testUsername");
@@ -83,7 +83,7 @@ public class StepDefinitions extends BaseTest {
     }
 
     @Then("I check that account created message is displayed")
-    public void i_check_account_created_message(){
+    public void check_account_created(){
         SignupPage signupPage = new SignupPage(driver);
         WebElement accountCreated = signupPage.getCreatedMessage();
         Assert.assertTrue("The account created message is not displayed", accountCreated.isDisplayed());
