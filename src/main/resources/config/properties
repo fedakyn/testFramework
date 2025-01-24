@@ -1,0 +1,2 @@
+db.url=jdbc:sqlite:C:\\Users\\valix\\AppData\\Roaming\\DBeaverData\\workspace6\\.metadata\\sample-database-sqlite-1\\Chinook.db
+chromedriver.path=C:\\Users\\valix\\Desktop\\project\\test\\src\\main\\resources\\drivers\\chromedriver.exe
