@@ -1,0 +1,3 @@
+chromedriver.path= chromedriver path
+db.url= db path
+api.baseURI= api path
