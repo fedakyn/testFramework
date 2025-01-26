@@ -5,6 +5,7 @@ import com.example.helpers.ConfigLoader;
 import java.sql.*;
 
 public class BaseDbTest {
+
     String jdbcUrl = ConfigLoader.getProperty("db.url");
     protected Connection connection;
 

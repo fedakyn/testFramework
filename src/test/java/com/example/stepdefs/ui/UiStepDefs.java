@@ -1,4 +1,4 @@
-package com.example.steps;
+package com.example.stepdefs.ui;
 
 import com.example.base.BaseTest;
 import com.example.pages.HomePage;
@@ -9,22 +9,33 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.example.helpers.Util;
 
-public class StepDefinitions extends BaseTest {
+public class UiStepDefs extends BaseTest {
 
-    SignupPage signupPage = new SignupPage(driver);
+    private HomePage homePage;
+    private LoginPage loginPage;
+    private SignupPage signupPage;
+
+    @Before
+    public void setUpPages() {
+        homePage = new HomePage(driver);
+        loginPage = new LoginPage(driver);
+        signupPage = new SignupPage(driver);
+    }
 
     @Given("I launch the browser")
-    public void browser_launch(){
+    public void browser_launch() {
         setUp();
     }
 
     @When("I open the application")
-    public void open_application(){
+    public void open_application() {
+        setUpPages();
         driver.get("https://automationexercise.com/");
         try {
             WebElement acceptCookiesButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='fc-button fc-cta-consent fc-primary-button']")));
@@ -35,34 +46,29 @@ public class StepDefinitions extends BaseTest {
         }
     }
 
-    @And ("I click on signup login")
-    public void click_signup(){
-        HomePage homePage = new HomePage(driver);
+    @And("I click on signup login")
+    public void click_signup() {
         homePage.clickSignUpLoginButton();
     }
 
     @And("I input the signup name {word}")
-    public void input_signup_name(String username){
-        LoginPage loginPage = new LoginPage(driver);
+    public void input_signup_name(String username) {
         loginPage.enterSignupName(username);
     }
 
     @And("I input the signupEmail")
-    public void input_signup_email(){
+    public void input_signup_email() {
         String email = Util.generateRandomString(10);
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.enterSignupEmail(email + "@test.net");
     }
 
     @And("I press signup")
-    public void press_signup(){
-        LoginPage loginPage = new LoginPage(driver);
+    public void press_signup() {
         loginPage.clickSignupButton();
     }
 
-    @And ("I complete all the fields for registering")
-    public void complete_all_fields(){
-        SignupPage signupPage = new SignupPage(driver);
+    @And("I complete all the fields for registering")
+    public void complete_all_fields() {
         signupPage.selectGender("id_gender1");
         signupPage.enterName("testUsername");
         signupPage.enterPassword("testPassword");
@@ -83,8 +89,7 @@ public class StepDefinitions extends BaseTest {
     }
 
     @Then("I check that account created message is displayed")
-    public void check_account_created(){
-        SignupPage signupPage = new SignupPage(driver);
+    public void check_account_created() {
         WebElement accountCreated = signupPage.getCreatedMessage();
         Assert.assertTrue("The account created message is not displayed", accountCreated.isDisplayed());
     }

@@ -3,6 +3,7 @@ package com.example.helpers;
 import java.util.Random;
 
 public class Util {
+
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static String generateRandomString(int length) {

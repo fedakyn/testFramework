@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigLoader {
+
     private static ConfigLoader instance;
     private static Properties properties = new Properties();
 

@@ -1,4 +1,4 @@
-Feature: testautomationexercise.com scenarios
+Feature: UI scenarios
 
   @vali
   Scenario: Register User
