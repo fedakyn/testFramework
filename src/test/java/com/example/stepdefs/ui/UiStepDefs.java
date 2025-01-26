@@ -5,11 +5,11 @@ import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
 import com.example.pages.SignupPage;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.junit.Before;
+import io.cucumber.java.Before;
+import io.cucumber.java.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,28 +21,35 @@ public class UiStepDefs extends BaseTest {
     private LoginPage loginPage;
     private SignupPage signupPage;
 
-    @Before
+    @Before(value = "@UI", order = 0)
+    public void browserSetup() {
+        setUp();
+    }
+
+    @Before(value = "@UI", order = 1)
     public void setUpPages() {
+        if (driver == null) {
+            throw new IllegalStateException("Driver is not initialized!");
+        }
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         signupPage = new SignupPage(driver);
     }
 
-    @Given("I launch the browser")
-    public void browser_launch() {
-        setUp();
+    @After(value = "@UI")
+    public void tearDownAfterScenario() {
+        tearDown();
     }
 
     @When("I open the application")
     public void open_application() {
-        setUpPages();
         driver.get("https://automationexercise.com/");
         try {
             WebElement acceptCookiesButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='fc-button fc-cta-consent fc-primary-button']")));
             acceptCookiesButton.click();
-            System.out.println("Cookies popup handled successfully.");
+            logger.info("Cookies popup handled successfully.");
         } catch (Exception e) {
-            System.out.println("Cookies popup not found or already accepted.");
+            logger.info("Cookies popup not found or already accepted.");
         }
     }
 
@@ -94,4 +101,8 @@ public class UiStepDefs extends BaseTest {
         Assert.assertTrue("The account created message is not displayed", accountCreated.isDisplayed());
     }
 
+    @Then("I close the browser")
+    public void close_browser() {
+        tearDown();
+    }
 }

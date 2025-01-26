@@ -2,7 +2,6 @@ package com.example.stepdefs.db;
 
 import com.example.base.BaseDbTest;
 import com.example.steps.DbSteps;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,7 +20,7 @@ public class DbStepDefs extends BaseDbTest {
     public void deleteRowFromTable(String tableName, String columnName, String value) {
         try {
             dbSteps.deleteRow(tableName, columnName, value);
-            System.out.println("Row successfully deleted from table " + tableName);
+            logger.info("Row successfully deleted from table " + tableName);
         } catch (Exception e) {
             System.err.println("Failed to delete row from table " + tableName + ": " + e.getMessage());
         }
@@ -44,7 +43,6 @@ public class DbStepDefs extends BaseDbTest {
 
     @When("Insert row in Album table with Title {string} ArtistId {int}")
     public void insert_row_album(String albumTitle, int artistId){
-        dbSteps.fetchLatestAlbumId();
         int lastInsertedAlbumId = dbSteps.getLatestAlbumId() + 1;
         dbSteps.insertAlbum(lastInsertedAlbumId,albumTitle,artistId);
     }

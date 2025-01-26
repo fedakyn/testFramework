@@ -2,18 +2,22 @@ package com.example.steps;
 
 import com.example.base.BaseApiTest;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class ApiSteps extends BaseApiTest {
+
     Response response;
+    private static final Logger logger = LoggerFactory.getLogger(ApiSteps.class);
 
     public void apiLogs() {
-        System.out.println("Response Body: " + response.getBody().asString());
-        System.out.println("Content-Type: " + response.getContentType());
-        System.out.println("Status Code: " + response.statusCode());
+        logger.info("Response Body: " + response.getBody().asString());
+        logger.info("Content-Type: " + response.getContentType());
+        logger.info("Status Code: " + response.statusCode());
     }
 
     public void getAllProducts() {
