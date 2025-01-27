@@ -21,7 +21,7 @@ public class HomePage extends BasePage {
         signUpLoginButton.click();
     }
 
-    public void deleteAccount(){
+    public void deleteAccount() {
         deleteAccountButton.click();
     }
 }

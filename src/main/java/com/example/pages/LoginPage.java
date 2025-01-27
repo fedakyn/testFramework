@@ -41,15 +41,15 @@ public class LoginPage extends BasePage {
         signupButton.click();
     }
 
-    public void enterLogin(String email){
+    public void enterLogin(String email) {
         loginInput.sendKeys(email);
     }
 
-    public void enterPassword(String password){
+    public void enterPassword(String password) {
         passwordInput.sendKeys(password);
     }
 
-    public void pressLogin(){
+    public void pressLogin() {
         loginButton.click();
     }
 }

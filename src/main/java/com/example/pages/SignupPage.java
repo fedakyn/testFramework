@@ -162,7 +162,7 @@ public class SignupPage extends BasePage {
         continueButton.click();
     }
 
-    public WebElement getCreatedMessage(){
+    public WebElement getCreatedMessage() {
         return accountCreatedMessage;
     }
 
