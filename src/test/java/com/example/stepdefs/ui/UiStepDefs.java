@@ -61,6 +61,9 @@ public class UiStepDefs extends BaseTest {
         loginPage.pressLogin();
         Assert.assertTrue("Delete Account button is displayed", homePage.getDeleteAccountButton().isDisplayed() && homePage.getDeleteAccountButton().isEnabled());
         Assert.assertTrue("Logout button is displayed", homePage.getLogoutButton().isDisplayed() && homePage.getLogoutButton().isEnabled());
+        String actualUserName = homePage.getUserName().getText().trim();
+        System.out.println("Expected user name: testUsername, Actual user name: " + actualUserName);
+        Assert.assertEquals("User name is displayed", "testUsername", actualUserName);
     }
 
 
@@ -92,5 +95,21 @@ public class UiStepDefs extends BaseTest {
     public void check_account_created() {
         WebElement accountCreated = signupPage.getCreatedMessage();
         Assert.assertTrue("The account created message is displayed", accountCreated.isDisplayed());
+    }
+
+    @And("I continue after creating account")
+    public void continue_after_creating_account() {
+        signupPage.continueAfterCreatingAccount();
+        Assert.assertTrue("Delete Account button is displayed", homePage.getDeleteAccountButton().isDisplayed() && homePage.getDeleteAccountButton().isEnabled());
+        Assert.assertTrue("Logout button is displayed", homePage.getLogoutButton().isDisplayed() && homePage.getLogoutButton().isEnabled());
+        String actualUserName = homePage.getUserName().getText().trim();
+        System.out.println("Expected user name: testUsername, Actual user name: " + actualUserName);
+        Assert.assertEquals("User name is displayed", "testUsername", actualUserName);
+    }
+
+    @And("I delete the created user")
+    public void delete_user() {
+        homePage.deleteAccount();
+        Assert.assertTrue("The account deleted message is displayed", signupPage.getAccountDeletedMessage().isDisplayed());
     }
 }

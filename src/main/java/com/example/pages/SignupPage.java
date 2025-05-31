@@ -77,6 +77,9 @@ public class SignupPage extends BasePage {
     @FindBy(css = "[class='login-form']>h2.title.text-center>b")
     private WebElement accountInfoLabel;
 
+    @FindBy(css = "[data-qa='account-deleted']>b")
+    private WebElement accountDeletedMessage;
+
     public WebElement getAccountInfoLabel() {
         return accountInfoLabel;
     }
@@ -173,6 +176,10 @@ public class SignupPage extends BasePage {
 
     public WebElement getCreatedMessage() {
         return accountCreatedMessage;
+    }
+
+    public WebElement getAccountDeletedMessage() {
+        return accountDeletedMessage;
     }
 
     public SignupPage(WebDriver driver) {
