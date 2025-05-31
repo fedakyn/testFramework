@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 public class BaseTest{
-    protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected static WebDriver driver;
+    protected static WebDriverWait wait;
     public static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     public void setUp(){

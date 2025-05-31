@@ -8,8 +8,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import io.cucumber.java.Before;
-import io.cucumber.java.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,28 +19,13 @@ public class UiStepDefs extends BaseTest {
     private LoginPage loginPage;
     private SignupPage signupPage;
 
-    @Before(value = "@UI", order = 0)
-    public void browserSetup() {
-        setUp();
-    }
-
-    @Before(value = "@UI", order = 1)
-    public void setUpPages() {
-        if (driver == null) {
-            throw new IllegalStateException("Driver is not initialized!");
-        }
-        homePage = new HomePage(driver);
-        loginPage = new LoginPage(driver);
-        signupPage = new SignupPage(driver);
-    }
-
-    @After(value = "@UI")
-    public void tearDownAfterScenario() {
-        tearDown();
-    }
-
     @When("I open the application")
     public void open_application() {
+        if (homePage == null) {
+            homePage = new HomePage(driver);
+            loginPage = new LoginPage(driver);
+            signupPage = new SignupPage(driver);
+        }
         driver.get("https://automationexercise.com/");
         try {
             WebElement acceptCookiesButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='fc-button fc-cta-consent fc-primary-button']")));
@@ -99,10 +82,5 @@ public class UiStepDefs extends BaseTest {
     public void check_account_created() {
         WebElement accountCreated = signupPage.getCreatedMessage();
         Assert.assertTrue("The account created message is not displayed", accountCreated.isDisplayed());
-    }
-
-    @Then("I close the browser")
-    public void close_browser() {
-        tearDown();
     }
 }
