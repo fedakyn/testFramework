@@ -24,4 +24,12 @@ public class HomePage extends BasePage {
     public void deleteAccount() {
         deleteAccountButton.click();
     }
+
+    public WebElement getDeleteAccountButton() {
+        return deleteAccountButton;
+    }
+
+    public WebElement getLogoutButton() {
+        return signUpLoginButton;
+    }
 }

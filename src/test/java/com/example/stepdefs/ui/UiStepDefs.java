@@ -1,6 +1,7 @@
 package com.example.stepdefs.ui;
 
 import com.example.base.BaseTest;
+import com.example.models.RegistrationField;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
 import com.example.pages.SignupPage;
@@ -12,6 +13,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.example.helpers.Util;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UiStepDefs extends BaseTest {
 
@@ -36,51 +40,57 @@ public class UiStepDefs extends BaseTest {
         }
     }
 
-    @And("I click on signup login")
+    @And("I navigate to the Signup and Login Page")
     public void click_signup() {
         homePage.clickSignUpLoginButton();
     }
 
-    @And("I input the signup name {word}")
-    public void input_signup_name(String username) {
+    @And("I sign up as {word}")
+    public void sign_up(String username) {
         loginPage.enterSignupName(username);
-    }
-
-    @And("I input the signupEmail")
-    public void input_signup_email() {
         String email = Util.generateRandomString(10);
         loginPage.enterSignupEmail(email + "@test.net");
-    }
-
-    @And("I press signup")
-    public void press_signup() {
         loginPage.clickSignupButton();
+        Assert.assertTrue("Enter Account Information label is displayed", signupPage.getAccountInfoLabel().isDisplayed());
     }
 
-    @And("I complete all the fields for registering")
+    @And("I log in")
+    public void log_in() {
+        loginPage.enterLogin("eOnlKzXMTD@test.net");
+        loginPage.enterPassword("testPassword");
+        loginPage.pressLogin();
+        Assert.assertTrue("Delete Account button is displayed", homePage.getDeleteAccountButton().isDisplayed() && homePage.getDeleteAccountButton().isEnabled());
+        Assert.assertTrue("Logout button is displayed", homePage.getLogoutButton().isDisplayed() && homePage.getLogoutButton().isEnabled());
+    }
+
+
+    @And("I complete the registration form")
     public void complete_all_fields() {
-        signupPage.selectGender("id_gender1");
-        signupPage.enterName("testUsername");
-        signupPage.enterPassword("testPassword");
-        signupPage.selectDateOfBirth("16", "8", "1997");
-        signupPage.signUpNewsletter();
-        signupPage.receiveOffers();
-        signupPage.enterFirstName("John");
-        signupPage.enterLastName("Doe");
-        signupPage.enterCompany("Mirceasoft");
-        signupPage.enterAddress1("First address");
-        signupPage.enterAddress2("Second address");
-        signupPage.selectCountry("Canada");
-        signupPage.enterState("Ontario");
-        signupPage.enterCity("Toronto");
-        signupPage.enterZipCode("123456");
-        signupPage.enterMobile("0293450123");
-        signupPage.createAccount();
+        Map<RegistrationField, String> data = new HashMap<>();
+        data.put(RegistrationField.GENDER, "id_gender1");
+        data.put(RegistrationField.NAME, "testUsername");
+        data.put(RegistrationField.PASSWORD, "testPassword");
+        data.put(RegistrationField.DAY, "16");
+        data.put(RegistrationField.MONTH, "8");
+        data.put(RegistrationField.YEAR, "1997");
+        data.put(RegistrationField.NEWSLETTER, "true");
+        data.put(RegistrationField.OFFERS, "true");
+        data.put(RegistrationField.FIRST_NAME, "John");
+        data.put(RegistrationField.LAST_NAME, "Doe");
+        data.put(RegistrationField.COMPANY, "Mirceasoft");
+        data.put(RegistrationField.ADDRESS1, "First address");
+        data.put(RegistrationField.ADDRESS2, "Second address");
+        data.put(RegistrationField.COUNTRY, "Canada");
+        data.put(RegistrationField.STATE, "Ontario");
+        data.put(RegistrationField.CITY, "Toronto");
+        data.put(RegistrationField.ZIP_CODE, "123456");
+        data.put(RegistrationField.MOBILE, "0293450123");
+        signupPage.registerUser(data);
     }
 
     @Then("I check that account created message is displayed")
     public void check_account_created() {
         WebElement accountCreated = signupPage.getCreatedMessage();
-        Assert.assertTrue("The account created message is not displayed", accountCreated.isDisplayed());
+        Assert.assertTrue("The account created message is displayed", accountCreated.isDisplayed());
     }
 }
