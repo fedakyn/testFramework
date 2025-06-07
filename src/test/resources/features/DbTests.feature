@@ -1,6 +1,6 @@
 Feature: db scenarios
 
-  @vali
+
   Scenario: Insert row and delete it
     Given Database connection is established
     When Fetch latest AlbumId

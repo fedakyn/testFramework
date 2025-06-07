@@ -1,6 +1,7 @@
 package com.example.pages;
 
 import com.example.base.BasePage;
+import com.example.models.RegistrationField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public class SignupPage extends BasePage {
 
@@ -71,6 +73,16 @@ public class SignupPage extends BasePage {
 
     @FindBy(css = "[data-qa='account-created']")
     private WebElement accountCreatedMessage;
+
+    @FindBy(css = "[class='login-form']>h2.title.text-center>b")
+    private WebElement accountInfoLabel;
+
+    @FindBy(css = "[data-qa='account-deleted']>b")
+    private WebElement accountDeletedMessage;
+
+    public WebElement getAccountInfoLabel() {
+        return accountInfoLabel;
+    }
 
     public void selectGender(String attributeValue) {
         List<WebElement> radioContainers = driver.findElements(By.className("radio-inline"));
@@ -166,7 +178,34 @@ public class SignupPage extends BasePage {
         return accountCreatedMessage;
     }
 
+    public WebElement getAccountDeletedMessage() {
+        return accountDeletedMessage;
+    }
+
     public SignupPage(WebDriver driver) {
         super(driver);
     }
+
+    public void registerUser(Map<RegistrationField, String> data) {
+        selectGender(data.get(RegistrationField.GENDER));
+        enterName(data.get(RegistrationField.NAME));
+        enterPassword(data.get(RegistrationField.PASSWORD));
+        selectDateOfBirth(data.get(RegistrationField.DAY),
+                data.get(RegistrationField.MONTH),
+                data.get(RegistrationField.YEAR));
+        if ("true".equals(data.get(RegistrationField.NEWSLETTER))) signUpNewsletter();
+        if ("true".equals(data.get(RegistrationField.OFFERS))) receiveOffers();
+        enterFirstName(data.get(RegistrationField.FIRST_NAME));
+        enterLastName(data.get(RegistrationField.LAST_NAME));
+        enterCompany(data.get(RegistrationField.COMPANY));
+        enterAddress1(data.get(RegistrationField.ADDRESS1));
+        enterAddress2(data.get(RegistrationField.ADDRESS2));
+        selectCountry(data.get(RegistrationField.COUNTRY));
+        enterState(data.get(RegistrationField.STATE));
+        enterCity(data.get(RegistrationField.CITY));
+        enterZipCode(data.get(RegistrationField.ZIP_CODE));
+        enterMobile(data.get(RegistrationField.MOBILE));
+        createAccount();
+    }
+
 }
